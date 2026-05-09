@@ -1,0 +1,394 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Dioval Group | Enterprise AI Reliability, Orchestration & Governance</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&family=JetBrains+Mono:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  body { font-family: 'Inter', sans-serif; }
+  .mono { font-family: 'JetBrains Mono', monospace; }
+  .glass { background: rgba(15,23,42,0.75); backdrop-filter: blur(16px); border: 1px solid rgba(255,255,255,0.06); }
+  .glass-light { background: rgba(30,41,59,0.6); backdrop-filter: blur(12px); border: 1px solid rgba(255,255,255,0.08); }
+  .glow-blue { box-shadow: 0 0 40px rgba(59,130,246,0.15); }
+  .glow-red { box-shadow: 0 0 40px rgba(239,68,68,0.12); }
+  .gradient-text { background: linear-gradient(135deg, #60a5fa 0%, #34d399 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+  .hero-grid { background-image: linear-gradient(rgba(59,130,246,0.04) 1px, transparent 1px), linear-gradient(90deg, rgba(59,130,246,0.04) 1px, transparent 1px); background-size: 60px 60px; }
+  .stat-card { transition: transform 0.3s ease, box-shadow 0.3s ease; }
+  .stat-card:hover { transform: translateY(-4px); box-shadow: 0 20px 40px rgba(0,0,0,0.4); }
+  .nav-link { position: relative; }
+  .nav-link::after { content:''; position:absolute; bottom:-4px; left:0; width:0; height:2px; background:#3b82f6; transition: width 0.3s ease; }
+  .nav-link:hover::after { width:100%; }
+  .pain-card { border-left: 3px solid; transition: all 0.3s ease; }
+  .pain-card:hover { transform: translateX(4px); }
+  @keyframes pulse-slow { 0%,100%{opacity:1} 50%{opacity:0.6} }
+  .pulse-slow { animation: pulse-slow 3s infinite; }
+  @keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+  .fade-in { animation: fadeInUp 0.8s ease forwards; }
+  .fade-in-delay-1 { animation: fadeInUp 0.8s ease 0.2s both; }
+  .fade-in-delay-2 { animation: fadeInUp 0.8s ease 0.4s both; }
+  .fade-in-delay-3 { animation: fadeInUp 0.8s ease 0.6s both; }
+  .mobile-menu { display:none; }
+  .mobile-menu.open { display:block; }
+  .btn-primary { background: linear-gradient(135deg, #2563eb, #1d4ed8); transition: all 0.3s ease; }
+  .btn-primary:hover { background: linear-gradient(135deg, #3b82f6, #2563eb); transform: translateY(-1px); box-shadow: 0 8px 25px rgba(37,99,235,0.4); }
+  .scrollbar-hide::-webkit-scrollbar { display:none; }
+</style>
+</head>
+<body class="bg-slate-950 text-slate-300 antialiased selection:bg-blue-500 selection:text-white flex flex-col min-h-screen overflow-x-hidden">
+
+<!-- NAVIGATION -->
+<nav class="fixed w-full z-50 glass border-b border-slate-800/60">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex justify-between items-center h-20">
+      <a href="index.html" class="flex items-center gap-2 flex-shrink-0">
+        <div class="w-8 h-8 bg-blue-600 rounded-sm flex items-center justify-center">
+          <svg class="w-4 h-4 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+        </div>
+        <span class="text-2xl font-black text-white tracking-tighter">DIOVAL<span class="text-blue-500">.</span></span>
+      </a>
+      <div class="hidden lg:flex items-center space-x-8">
+        <a href="about.html" class="nav-link text-sm font-semibold text-slate-400 hover:text-white transition-colors">About</a>
+        <a href="audits.html" class="nav-link text-sm font-semibold text-slate-400 hover:text-white transition-colors">Audits</a>
+        <a href="orchestration.html" class="nav-link text-sm font-semibold text-slate-400 hover:text-white transition-colors">Orchestration</a>
+        <a href="compliance.html" class="nav-link text-sm font-semibold text-slate-400 hover:text-white transition-colors">Compliance</a>
+        <a href="knowledge.html" class="nav-link text-sm font-semibold text-slate-400 hover:text-white transition-colors">Knowledge Fabric</a>
+        <a href="managed-services.html" class="nav-link text-sm font-semibold text-slate-400 hover:text-white transition-colors">Managed Ops</a>
+        <a href="cases.html" class="nav-link text-sm font-semibold text-slate-400 hover:text-white transition-colors">Case Studies</a>
+      </div>
+      <div class="flex items-center gap-4">
+        <a href="contact.html" class="btn-primary text-white px-6 py-2.5 rounded-sm font-bold text-sm shadow-lg shadow-blue-500/20">Book an Audit</a>
+        <button id="menuBtn" class="lg:hidden text-slate-400 hover:text-white p-2" onclick="document.getElementById('mobileMenu').classList.toggle('open')">
+          <svg class="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="mobileMenu" class="mobile-menu lg:hidden glass border-t border-slate-800/60">
+    <div class="px-4 py-6 space-y-4">
+      <a href="about.html" class="block text-sm font-semibold text-slate-400 hover:text-white py-2">About</a>
+      <a href="audits.html" class="block text-sm font-semibold text-slate-400 hover:text-white py-2">Audits</a>
+      <a href="orchestration.html" class="block text-sm font-semibold text-slate-400 hover:text-white py-2">Orchestration</a>
+      <a href="compliance.html" class="block text-sm font-semibold text-slate-400 hover:text-white py-2">Compliance</a>
+      <a href="knowledge.html" class="block text-sm font-semibold text-slate-400 hover:text-white py-2">Knowledge Fabric</a>
+      <a href="managed-services.html" class="block text-sm font-semibold text-slate-400 hover:text-white py-2">Managed Ops</a>
+      <a href="cases.html" class="block text-sm font-semibold text-slate-400 hover:text-white py-2">Case Studies</a>
+      <a href="contact.html" class="block btn-primary text-white px-6 py-3 rounded-sm font-bold text-sm text-center mt-4">Book an Audit</a>
+    </div>
+  </div>
+</nav>
+
+<main class="flex-grow">
+
+  <!-- HERO -->
+  <section class="relative pt-44 pb-28 lg:pt-60 lg:pb-36 overflow-hidden hero-grid">
+    <div class="absolute inset-0 bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(37,99,235,0.18),transparent)]"></div>
+    <div class="absolute top-20 right-0 w-96 h-96 bg-blue-600/5 rounded-full blur-3xl"></div>
+    <div class="absolute bottom-0 left-0 w-64 h-64 bg-cyan-600/5 rounded-full blur-3xl"></div>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+      <div class="max-w-5xl">
+        <div class="flex items-center gap-3 mb-8 fade-in">
+          <div class="w-2 h-2 bg-red-500 rounded-full pulse-slow"></div>
+          <span class="mono text-xs text-red-400 font-bold tracking-widest uppercase">2026 ENTERPRISE REALITY CHECK</span>
+        </div>
+        <h1 class="text-5xl lg:text-7xl xl:text-8xl font-black text-white leading-[1.05] mb-8 fade-in-delay-1">
+          Intelligence is easy.<br>
+          <span class="gradient-text">Production is brutal.</span>
+        </h1>
+        <p class="text-xl lg:text-2xl text-slate-400 mb-4 leading-relaxed max-w-3xl fade-in-delay-2">
+          <span class="text-white font-semibold">89% of enterprise AI agents never survive production.</span> They fail because of context limits, hallucination cascades, infinite loops, and catastrophic regulatory blindspots that no demo ever reveals.
+        </p>
+        <p class="text-lg text-slate-500 mb-12 max-w-2xl fade-in-delay-2">We engineer the infrastructure, orchestration, and compliance architecture that separates a working demo from a production-grade AI system.</p>
+        <div class="flex flex-col sm:flex-row gap-4 fade-in-delay-3">
+          <a href="audits.html" class="btn-primary text-white px-8 py-4 rounded-sm font-bold text-center text-lg shadow-xl shadow-blue-500/20">Assess Your Risk →</a>
+          <a href="cases.html" class="glass text-white border border-slate-700 px-8 py-4 rounded-sm font-bold text-center text-lg hover:bg-white/5 transition">Read the $47M Case Study</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- LIVE TICKER STATS -->
+  <section class="py-6 bg-blue-950/30 border-y border-blue-900/30 overflow-hidden">
+    <div class="flex gap-16 animate-pulse items-center px-8 flex-wrap justify-center">
+      <div class="flex items-center gap-3 whitespace-nowrap">
+        <span class="mono text-blue-400 font-bold text-sm">89%</span>
+        <span class="text-xs text-slate-500">of AI agents fail in production</span>
+      </div>
+      <div class="w-px h-4 bg-slate-700"></div>
+      <div class="flex items-center gap-3 whitespace-nowrap">
+        <span class="mono text-red-400 font-bold text-sm">$47M</span>
+        <span class="text-xs text-slate-500">avg compliance remediation cost</span>
+      </div>
+      <div class="w-px h-4 bg-slate-700"></div>
+      <div class="flex items-center gap-3 whitespace-nowrap">
+        <span class="mono text-orange-400 font-bold text-sm">$23M</span>
+        <span class="text-xs text-slate-500">avg agent coordination loss</span>
+      </div>
+      <div class="w-px h-4 bg-slate-700"></div>
+      <div class="flex items-center gap-3 whitespace-nowrap">
+        <span class="mono text-yellow-400 font-bold text-sm">$31M</span>
+        <span class="text-xs text-slate-500">dark knowledge hallucination cost</span>
+      </div>
+      <div class="w-px h-4 bg-slate-700"></div>
+      <div class="flex items-center gap-3 whitespace-nowrap">
+        <span class="mono text-green-400 font-bold text-sm">72hrs</span>
+        <span class="text-xs text-slate-500">avg time to detect agent loop failure</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PAIN SECTION -->
+  <section class="py-28 bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-3xl mx-auto mb-20">
+        <p class="mono text-xs text-blue-400 tracking-widest uppercase mb-4">The 3 Failure Modes Costing You Millions</p>
+        <h2 class="text-3xl md:text-5xl font-black text-white mb-6">You Didn't Build an AI Strategy.<br><span class="gradient-text">You Built an AI Archipelago.</span></h2>
+        <p class="text-slate-400 text-lg">Your teams deployed isolated agents across 14 vendors. Now they're contradicting each other, consuming stale data, and exposing the enterprise to seven-figure liability. Every week you wait compounds the damage.</p>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div class="pain-card bg-slate-900/80 border-red-500/50 p-8 rounded-sm glow-red">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 bg-red-500/10 border border-red-500/20 rounded-sm flex items-center justify-center">
+              <svg class="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01m-6.938 4h13.856c1.54 0 2.502-1.667 1.732-3L13.732 4c-.77-1.333-2.694-1.333-3.464 0L3.34 16c-.77 1.333.192 3 1.732 3z"/></svg>
+            </div>
+            <span class="mono text-red-400 text-xs font-bold tracking-widest">FAILURE MODE 01</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">The $47M Compliance Blindspot</h3>
+          <p class="text-sm text-slate-400 leading-relaxed mb-6">Agents taking actions without immutable audit trails, human-in-the-loop gates, or policy-as-code validation violate the EU AI Act and US MRM (SR 11-7) frameworks. The fines are not theoretical — they're landing on desks in 2026.</p>
+          <div class="flex items-center gap-2">
+            <a href="compliance.html" class="text-red-400 text-sm font-semibold hover:text-red-300 transition">View our compliance architecture →</a>
+          </div>
+        </div>
+
+        <div class="pain-card bg-slate-900/80 border-orange-500/50 p-8 rounded-sm">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 bg-orange-500/10 border border-orange-500/20 rounded-sm flex items-center justify-center">
+              <svg class="w-5 h-5 text-orange-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13.828 10.172a4 4 0 00-5.656 0l-4 4a4 4 0 105.656 5.656l1.102-1.101m-.758-4.899a4 4 0 005.656 0l4-4a4 4 0 00-5.656-5.656l-1.1 1.1"/></svg>
+            </div>
+            <span class="mono text-orange-400 text-xs font-bold tracking-widest">FAILURE MODE 02</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">The $23M Coordination Crisis</h3>
+          <p class="text-sm text-slate-400 leading-relaxed mb-6">Agent A books a truck. Agent B schedules it for maintenance. Without a multi-agent orchestration layer using MCP/A2A protocols, your agents don't coordinate — they actively fight each other in production while SLA penalties accumulate.</p>
+          <div class="flex items-center gap-2">
+            <a href="orchestration.html" class="text-orange-400 text-sm font-semibold hover:text-orange-300 transition">View our orchestration layer →</a>
+          </div>
+        </div>
+
+        <div class="pain-card bg-slate-900/80 border-yellow-500/50 p-8 rounded-sm">
+          <div class="flex items-center gap-3 mb-6">
+            <div class="w-10 h-10 bg-yellow-500/10 border border-yellow-500/20 rounded-sm flex items-center justify-center">
+              <svg class="w-5 h-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.663 17h4.673M12 3v1m6.364 1.636l-.707.707M21 12h-1M4 12H3m3.343-5.657l-.707-.707m2.828 9.9a5 5 0 117.072 0l-.548.547A3.374 3.374 0 0014 18.469V19a2 2 0 11-4 0v-.531c0-.895-.356-1.754-.988-2.386l-.548-.547z"/></svg>
+            </div>
+            <span class="mono text-yellow-400 text-xs font-bold tracking-widest">FAILURE MODE 03</span>
+          </div>
+          <h3 class="text-xl font-bold text-white mb-3">The $31M Dark Knowledge Problem</h3>
+          <p class="text-sm text-slate-400 leading-relaxed mb-6">Your agent cited a clinical protocol retired 8 months ago because the PDF was never re-ingested after the policy update. Vector search alone cannot solve the enterprise knowledge freshness crisis. The next hallucination is already scheduled.</p>
+          <div class="flex items-center gap-2">
+            <a href="knowledge.html" class="text-yellow-400 text-sm font-semibold hover:text-yellow-300 transition">View our knowledge fabric →</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WHY DIOVAL SECTION -->
+  <section class="py-28 bg-slate-900/50 border-y border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid lg:grid-cols-2 gap-16 items-center">
+        <div>
+          <p class="mono text-xs text-blue-400 tracking-widest uppercase mb-4">Why Dioval?</p>
+          <h2 class="text-3xl md:text-4xl font-black text-white mb-6">We Don't Build Demos. We Engineer Production Systems That Don't Fail.</h2>
+          <p class="text-slate-400 mb-8 leading-relaxed">We operate exclusively at the intersection of complex multi-agent orchestration, enterprise-grade compliance architecture, and mission-critical knowledge infrastructure. Not a generalist IT firm. Frontier AI Architects.</p>
+          <div class="space-y-4">
+            <div class="flex items-start gap-4">
+              <div class="w-6 h-6 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-white text-sm">Architecture over Intelligence</h4>
+                <p class="text-slate-500 text-sm">Seven capable agents, uncoordinated, produce worse outcomes than three mediocre agents that are well-orchestrated.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-6 h-6 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-white text-sm">Compliance is Code</h4>
+                <p class="text-slate-500 text-sm">"The model said so" is not a legal defense. We bake compliance into middleware via OPA and immutable ClickHouse audit trails.</p>
+              </div>
+            </div>
+            <div class="flex items-start gap-4">
+              <div class="w-6 h-6 bg-blue-500/20 rounded-full flex items-center justify-center flex-shrink-0 mt-0.5">
+                <svg class="w-3 h-3 text-blue-400" fill="currentColor" viewBox="0 0 20 20"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+              </div>
+              <div>
+                <h4 class="font-semibold text-white text-sm">Zero Trust Agents</h4>
+                <p class="text-slate-500 text-sm">Agents are contractors with limited badges — not employees with master keys. Every action is scoped, audited, and reversible.</p>
+              </div>
+            </div>
+          </div>
+          <a href="about.html" class="inline-flex items-center gap-2 mt-8 text-blue-400 font-semibold hover:text-blue-300 transition">Read our full philosophy <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></a>
+        </div>
+        <div class="space-y-4">
+          <div class="stat-card glass-light p-6 rounded-sm">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-sm text-slate-400">Production Readiness Score</span>
+              <span class="mono text-red-400 text-sm font-bold">CRITICAL: 34/100</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-2">
+              <div class="bg-red-500 h-2 rounded-full" style="width:34%"></div>
+            </div>
+            <p class="text-xs text-slate-600 mt-2">Industry average before Dioval audit. Below 60 is a deployment blocker.</p>
+          </div>
+          <div class="stat-card glass-light p-6 rounded-sm">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-sm text-slate-400">Compliance Coverage</span>
+              <span class="mono text-orange-400 text-sm font-bold">WARNING: 41/100</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-2">
+              <div class="bg-orange-500 h-2 rounded-full" style="width:41%"></div>
+            </div>
+            <p class="text-xs text-slate-600 mt-2">SR 11-7 / EU AI Act readiness at deployment without architecture review.</p>
+          </div>
+          <div class="stat-card glass-light p-6 rounded-sm">
+            <div class="flex items-center justify-between mb-3">
+              <span class="text-sm text-slate-400">After Dioval Engagement</span>
+              <span class="mono text-green-400 text-sm font-bold">OPTIMAL: 94/100</span>
+            </div>
+            <div class="w-full bg-slate-800 rounded-full h-2">
+              <div class="bg-green-500 h-2 rounded-full" style="width:94%"></div>
+            </div>
+            <p class="text-xs text-slate-600 mt-2">Average client PRS score 90 days post-engagement.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES OVERVIEW -->
+  <section class="py-28 bg-slate-950">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center max-w-2xl mx-auto mb-16">
+        <p class="mono text-xs text-blue-400 tracking-widest uppercase mb-4">Our Practice Areas</p>
+        <h2 class="text-3xl md:text-4xl font-black text-white">End-to-End AI Infrastructure Engineering</h2>
+      </div>
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <a href="audits.html" class="group glass-light p-6 rounded-sm border border-slate-800 hover:border-blue-500/40 transition-all duration-300">
+          <div class="w-10 h-10 bg-blue-500/10 rounded-sm flex items-center justify-center mb-4 group-hover:bg-blue-500/20 transition">
+            <svg class="w-5 h-5 text-blue-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-6 9l2 2 4-4"/></svg>
+          </div>
+          <h3 class="font-bold text-white mb-2">AI Production Audits</h3>
+          <p class="text-sm text-slate-500">Fixed-price diagnostic engagements. The $25K PRS Assessment scores your system across 8 critical dimensions.</p>
+          <span class="inline-flex items-center gap-1 mt-4 text-blue-400 text-sm font-semibold group-hover:gap-2 transition-all">Learn more <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></span>
+        </a>
+        <a href="orchestration.html" class="group glass-light p-6 rounded-sm border border-slate-800 hover:border-blue-500/40 transition-all duration-300">
+          <div class="w-10 h-10 bg-purple-500/10 rounded-sm flex items-center justify-center mb-4 group-hover:bg-purple-500/20 transition">
+            <svg class="w-5 h-5 text-purple-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"/></svg>
+          </div>
+          <h3 class="font-bold text-white mb-2">Multi-Agent Orchestration</h3>
+          <p class="text-sm text-slate-500">MCP & A2A protocol standardization. Hierarchical supervisor architecture. Lossless 5-layer semantic handoff.</p>
+          <span class="inline-flex items-center gap-1 mt-4 text-blue-400 text-sm font-semibold group-hover:gap-2 transition-all">Learn more <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></span>
+        </a>
+        <a href="compliance.html" class="group glass-light p-6 rounded-sm border border-slate-800 hover:border-blue-500/40 transition-all duration-300">
+          <div class="w-10 h-10 bg-red-500/10 rounded-sm flex items-center justify-center mb-4 group-hover:bg-red-500/20 transition">
+            <svg class="w-5 h-5 text-red-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"/></svg>
+          </div>
+          <h3 class="font-bold text-white mb-2">AI Compliance Architecture</h3>
+          <p class="text-sm text-slate-500">SR 11-7, EU AI Act, SEC Rule 17a-4. Compliance Proxy Pattern with OPA. Immutable ClickHouse audit trails.</p>
+          <span class="inline-flex items-center gap-1 mt-4 text-blue-400 text-sm font-semibold group-hover:gap-2 transition-all">Learn more <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></span>
+        </a>
+        <a href="knowledge.html" class="group glass-light p-6 rounded-sm border border-slate-800 hover:border-blue-500/40 transition-all duration-300">
+          <div class="w-10 h-10 bg-yellow-500/10 rounded-sm flex items-center justify-center mb-4 group-hover:bg-yellow-500/20 transition">
+            <svg class="w-5 h-5 text-yellow-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"/></svg>
+          </div>
+          <h3 class="font-bold text-white mb-2">Enterprise Knowledge Fabric</h3>
+          <p class="text-sm text-slate-500">GraphRAG, Neo4j knowledge graphs, layout-aware document parsing, and freshness governance via SHA-256 change detection.</p>
+          <span class="inline-flex items-center gap-1 mt-4 text-blue-400 text-sm font-semibold group-hover:gap-2 transition-all">Learn more <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></span>
+        </a>
+        <a href="managed-services.html" class="group glass-light p-6 rounded-sm border border-slate-800 hover:border-blue-500/40 transition-all duration-300">
+          <div class="w-10 h-10 bg-green-500/10 rounded-sm flex items-center justify-center mb-4 group-hover:bg-green-500/20 transition">
+            <svg class="w-5 h-5 text-green-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z"/></svg>
+          </div>
+          <h3 class="font-bold text-white mb-2">Agent Network Operations</h3>
+          <p class="text-sm text-slate-500">24/7 AI-NOC for your agent ecosystem. SLO monitoring, conflict resolution, Chaos Engineering GameDays. Starting at $15K/mo.</p>
+          <span class="inline-flex items-center gap-1 mt-4 text-blue-400 text-sm font-semibold group-hover:gap-2 transition-all">Learn more <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></span>
+        </a>
+        <a href="cases.html" class="group glass-light p-6 rounded-sm border border-slate-800 hover:border-blue-500/40 transition-all duration-300">
+          <div class="w-10 h-10 bg-slate-500/10 rounded-sm flex items-center justify-center mb-4 group-hover:bg-slate-500/20 transition">
+            <svg class="w-5 h-5 text-slate-400" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/></svg>
+          </div>
+          <h3 class="font-bold text-white mb-2">Case Studies</h3>
+          <p class="text-sm text-slate-500">The $47M compliance blindspot, the $23M coordination crisis. Real failures, real costs, real solutions.</p>
+          <span class="inline-flex items-center gap-1 mt-4 text-blue-400 text-sm font-semibold group-hover:gap-2 transition-all">Read the cases <svg class="w-4 h-4" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 8l4 4m0 0l-4 4m4-4H3"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA SECTION -->
+  <section class="py-28 bg-blue-950/20 border-y border-blue-900/20">
+    <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+      <div class="inline-block px-4 py-1.5 rounded-full bg-blue-500/10 border border-blue-500/20 text-blue-400 mono text-xs font-bold tracking-widest uppercase mb-6">Act Before the Regulator Does</div>
+      <h2 class="text-3xl md:text-5xl font-black text-white mb-6">Your Next AI Failure Is Already Scheduled.<br>The Question Is Whether You Find It First.</h2>
+      <p class="text-slate-400 text-lg mb-10">A 3-week Production Readiness Assessment exposes every critical gap before it becomes a compliance notice, a coordination catastrophe, or a hallucination headline. Fixed price. No surprises.</p>
+      <div class="flex flex-col sm:flex-row gap-4 justify-center">
+        <a href="contact.html" class="btn-primary text-white px-10 py-4 rounded-sm font-bold text-lg shadow-xl shadow-blue-500/20">Book Your $25K Audit →</a>
+        <a href="cases.html" class="glass text-white border border-slate-700 px-10 py-4 rounded-sm font-bold text-lg hover:bg-white/5 transition">View Case Studies</a>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="bg-slate-950 border-t border-slate-800 py-16">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12 mb-12">
+      <div class="col-span-1">
+        <div class="flex items-center gap-2 mb-4">
+          <div class="w-7 h-7 bg-blue-600 rounded-sm flex items-center justify-center">
+            <svg class="w-3.5 h-3.5 text-white" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="3" d="M13 10V3L4 14h7v7l9-11h-7z"/></svg>
+          </div>
+          <span class="text-xl font-black text-white tracking-tighter">DIOVAL<span class="text-blue-500">.</span></span>
+        </div>
+        <p class="text-sm text-slate-500 leading-relaxed">Frontier AI infrastructure engineering for enterprises that cannot afford to fail in production.</p>
+      </div>
+      <div>
+        <h4 class="text-sm font-bold text-white mb-4">Services</h4>
+        <ul class="space-y-2 text-sm text-slate-500">
+          <li><a href="audits.html" class="hover:text-white transition">Production Audits</a></li>
+          <li><a href="orchestration.html" class="hover:text-white transition">Orchestration</a></li>
+          <li><a href="compliance.html" class="hover:text-white transition">Compliance</a></li>
+          <li><a href="knowledge.html" class="hover:text-white transition">Knowledge Fabric</a></li>
+          <li><a href="managed-services.html" class="hover:text-white transition">Managed Ops</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-sm font-bold text-white mb-4">Company</h4>
+        <ul class="space-y-2 text-sm text-slate-500">
+          <li><a href="about.html" class="hover:text-white transition">About Us</a></li>
+          <li><a href="cases.html" class="hover:text-white transition">Case Studies</a></li>
+          <li><a href="contact.html" class="hover:text-white transition">Contact</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 class="text-sm font-bold text-white mb-4">Book an Audit</h4>
+        <p class="text-sm text-slate-500 mb-4">Ready to expose your risk? A 30-minute discovery call is all it takes.</p>
+        <a href="contact.html" class="btn-primary text-white px-5 py-2.5 rounded-sm font-bold text-sm inline-block">Schedule Now →</a>
+      </div>
+    </div>
+    <div class="border-t border-slate-800 pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
+      <p class="text-xs text-slate-600">© 2026 Dioval Group. All rights reserved. Engineered for production, not demos.</p>
+      <div class="flex gap-6 text-xs text-slate-600">
+        <span>Privacy Policy</span>
+        <span>Terms of Service</span>
+        <span>SOC 2 Type II Compliant</span>
+      </div>
+    </div>
+  </div>
+</footer>
+
+</body>
+</html>
